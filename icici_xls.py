@@ -4,6 +4,8 @@ from dash import Dash, Input, Output, callback, dash_table,html
 import pandas as pd
 import dash_bootstrap_components as dbc
 import random
+from dash import dcc
+
 from collections import OrderedDict
 
 friends = ['bhagat','pankaj','sanyam']
@@ -45,22 +47,18 @@ def parse_remark_upi(string):
     return ('-').join(string_list)
 df['remark'] = df.apply(lambda x: parse_all(x['Transaction Remarks'],x['Transcation type']),axis=1)
 final_df = df.drop(['Cheque Number','Transaction Remarks'],axis=1)
-final_df['friends'] = [random.choice(friends) for _ in range(len(final_df))]
-app = Dash(__name__)
 
+dropdown_comp = dcc.Dropdown(id='friends', options=[
+        {'value': x, 'label': x} for x in friends
+    ], multi=True, value=friends)
+final_df['friends'] = [dropdown_comp for _ in range(len(final_df))]
+app = Dash(__name__)
 app.layout = html.Div([
     dash_table.DataTable(data=final_df.to_dict('records'),\
-        columns=[{"name": i, "id": i,'presentation': 'dropdown'} if i == 'friends' else {"name": i, "id": i} for i in final_df.columns], \
+        columns=[{"name": i, "id": i} if i == 'friends' else {"name": i, "id": i} for i in final_df.columns], \
         id='tbl',\
         editable=True,
-        dropdown={
-        'friends': {
-            'options': [
-                {'label': i, 'value': i}
-                for i in final_df['friends'].unique()
-            ]
-            }
-        }),
+        ),
         html.Div(id='table-dropdown-container'),
         dbc.Alert(id='tbl_out')])
 
