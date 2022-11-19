@@ -16,4 +16,4 @@ One platform for expenditure tracking for all cards and accounts
 - [ ] Add Uber+ola ride info integration
 
 ## Current Progress
-<img src="https://github.com/pranavjadhav001/kharcha/blob/master/screenshots/2022-11-19_20-36.png"> 
+<img src="https://github.com/pranavjadhav001/kharcha/blob/main/screenshots/2022-11-19_20-36.png"> 
