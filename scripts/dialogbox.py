@@ -87,7 +87,6 @@ def update_table_body(transaction_list):
 
 app.layout = html.Div([dcc.Store(id='store'),
     dcc.Store(id='table_store'),
-    html.Div(html.H1("KHARCHA2"),id='empty'),
     html.Div(html.H1("KHARCHA")),html.Div([
     html.Div(dcc.Upload(html.Button('icici bank statement upload'),id='ICICI Bank',multiple=True,\
         style_active={'backgroundColor': '#eee',}),\
